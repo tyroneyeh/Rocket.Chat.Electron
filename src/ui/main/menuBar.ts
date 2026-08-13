@@ -463,14 +463,17 @@ export const createViewMenu = createSelector(
       ]),
       { type: 'separator' },
       {
-        id: 'showServerList',
-        label: t('menus.showServerList'),
-        type: 'checkbox',
-        checked: isSideBarEnabled,
-        enabled: true,
-        accelerator:
-          process.platform === 'darwin' ? 'Shift+Command+S' : 'Ctrl+Shift+S',
-        click: async ({ checked }) => {
+        id: 'workspaceSwitcherHeader',
+        label: t('menus.workspaceSwitcher'),
+        enabled: false,
+      },
+      {
+        id: 'workspaceTabs',
+        label: t('menus.workspaceTabs'),
+        type: 'radio',
+        checked: navigationLayout === 'tabs',
+        accelerator: nextNavigationLayoutAccelerator(navigationLayout, 'tabs'),
+        click: async () => {
           const browserWindow = await getRootWindow();
 
           if (!browserWindow.isVisible()) {
